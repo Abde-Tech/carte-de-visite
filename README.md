@@ -1,16 +1,33 @@
-# React + Vite
+# 💳 Carte de visite
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Projet de carte de visite numérique interactive développé avec React.
 
-Currently, two official plugins are available:
+Ce projet me permet de mettre en pratique mes compétences en développement Front-End et de présenter mes informations et mes différents liens de manière simple et moderne.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🛠️ Technologies utilisées
 
-## React Compiler
+- React
+- JavaScript
+- HTML
+- CSS
+- Vite
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Installation
 
-## Expanding the Oxlint configuration
+Cloner le projet :
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+git clone https://github.com/Abde-Tech/carte-de-visite.git
+
+Installer les dépendances :
+
+npm install
+
+Lancer le projet :
+
+npm run dev
+
+## 👨‍💻 Auteur
+
+Abderrahmane Achou
+
+Projet réalisé dans le cadre de mon apprentissage et du développement de mon portfolio.
