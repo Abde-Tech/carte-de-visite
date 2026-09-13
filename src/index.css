@@ -1,0 +1,984 @@
+/* ------------------------------ */
+/* Réglages généraux              */
+/* ------------------------------ */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+
+  min-height: 100vh;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  color: #1f2937;
+}
+
+/* ------------------------------ */
+/* Page                           */
+/* ------------------------------ */
+
+.page {
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 30px;
+
+  background-color: #070b17;
+  background-image:
+    /* Halo bleu */
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(59, 130, 246, 0.3) 0%,
+      rgba(59, 130, 246, 0.1) 20%,
+      transparent 35%
+    ),
+    /* Halo violet */
+    radial-gradient(
+        circle at 85% 80%,
+        rgba(139, 92, 246, 0.28) 0%,
+        rgba(139, 92, 246, 0.1) 20%,
+        transparent 35%
+      ),
+    /* Grille horizontale */
+    linear-gradient(rgba(15, 23, 42, 0.035) 1px, transparent 1px),
+    /* Grille verticale */
+    linear-gradient(90deg, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
+
+  background-size:
+    auto,
+    auto,
+    40px 40px,
+    40px 40px;
+
+  transition: background-color 0.4s ease;
+
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* ------------------------------ */
+/* Page mode sombre               */
+/* ------------------------------ */
+
+.page.dark-page {
+  background-color: #0f172a;
+
+  background-image:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(59, 130, 246, 0.25) 0%,
+      rgba(59, 130, 246, 0.08) 20%,
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 85% 80%,
+      rgba(139, 92, 246, 0.25) 0%,
+      rgba(139, 92, 246, 0.08) 20%,
+      transparent 35%
+    ),
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+
+  background-size:
+    auto,
+    auto,
+    40px 40px,
+    40px 40px;
+}
+
+/* ------------------------------ */
+/* Ambiance spatiale globale      */
+/* ------------------------------ */
+
+/* Etoiles sur toute la page */
+.page::before {
+  content: "";
+  position: absolute;
+  inset: -120px;
+  z-index: 0;
+  pointer-events: none;
+
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.95) 1px, transparent 1.6px),
+    radial-gradient(circle, rgba(147, 197, 253, 0.85) 1px, transparent 1.6px),
+    radial-gradient(circle, rgba(196, 181, 253, 0.75) 1px, transparent 1.6px);
+
+  background-size:
+    85px 85px,
+    135px 135px,
+    185px 185px;
+
+  background-position:
+    0 0,
+    35px 55px,
+    80px 20px;
+
+  opacity: 0.62;
+
+  animation: starsMove 32s linear infinite;
+}
+
+/* Nébuleuses bleu / violet */
+.page::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  z-index: 0;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle at 18% 28%,
+      rgba(37, 99, 235, 0.32),
+      transparent 26%
+    ),
+    radial-gradient(
+      circle at 78% 22%,
+      rgba(124, 58, 237, 0.28),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 72% 82%,
+      rgba(14, 165, 233, 0.22),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 24% 82%,
+      rgba(168, 85, 247, 0.20),
+      transparent 28%
+    );
+
+  filter: blur(28px);
+  opacity: 0.9;
+
+  animation: nebulaMove 18s ease-in-out infinite alternate;
+}
+
+/* La carte reste au-dessus du décor spatial */
+.profile-card {
+  z-index: 1;
+}
+
+/* Déplacement lent des étoiles */
+@keyframes starsMove {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(85px, 85px, 0);
+  }
+}
+
+/* Mouvement lent des nébuleuses */
+@keyframes nebulaMove {
+  0% {
+    transform: translate3d(-25px, -15px, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(30px, 20px, 0) scale(1.07);
+  }
+
+  100% {
+    transform: translate3d(-10px, 35px, 0) scale(1.03);
+  }
+}
+
+
+/* ------------------------------ */
+/* Carte principale               */
+/* ------------------------------ */
+
+.profile-card {
+  position: relative;
+
+  width: 100%;
+  max-width: 420px;
+
+  padding: 35px;
+
+  background-color: white;
+
+  border-radius: 24px;
+
+  text-align: center;
+
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
+
+  animation: fadeIn 0.6s ease;
+}
+
+.profile-card:hover {
+  transform: translateY(-6px);
+
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.16);
+}
+
+/* Carte mode sombre */
+
+.profile-card.dark {
+  background-color: #1e293b;
+  color: white;
+}
+
+/* ------------------------------ */
+/* Effet visuel quand les projets */
+/* sont ouverts                   */
+/* ------------------------------ */
+
+.profile-card::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  border-radius: 24px;
+
+  pointer-events: none;
+
+  opacity: 0;
+
+  background:
+    radial-gradient(
+      circle at 20% 65%,
+      rgba(59, 130, 246, 0.2),
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(139, 92, 246, 0.18),
+      transparent 42%
+    );
+
+  transition: opacity 0.7s ease;
+}
+
+/* Quand la zone projets est ouverte */
+
+.profile-card.projects-open::before {
+  opacity: 1;
+}
+
+/* ------------------------------ */
+/* Animation d'apparition         */
+/* ------------------------------ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ------------------------------ */
+/* Bouton clair / sombre          */
+/* ------------------------------ */
+
+.theme-button {
+  position: absolute;
+
+  top: 20px;
+  right: 20px;
+
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0;
+
+  border: none;
+  border-radius: 50%;
+
+  background-color: #f1f5f9;
+  color: #1e293b;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.theme-button:hover {
+  background-color: #e2e8f0;
+
+  transform: rotate(8deg);
+}
+
+.profile-card.dark .theme-button {
+  background-color: #334155;
+  color: white;
+}
+
+/* ------------------------------ */
+/* Photo                          */
+/* ------------------------------ */
+
+.profile-card__image {
+  width: 140px;
+  height: 140px;
+
+  object-fit: cover;
+
+  border-radius: 50%;
+
+  border: 5px solid white;
+
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+}
+
+/* ------------------------------ */
+/* Nom et métier                  */
+/* ------------------------------ */
+
+.profile-card h1 {
+  margin: 20px 0 5px;
+
+  font-size: 30px;
+}
+
+.profile-card h2 {
+  margin: 0;
+
+  font-size: 18px;
+  font-weight: normal;
+
+  color: #64748b;
+}
+
+.profile-card.dark h2 {
+  color: #cbd5e1;
+}
+
+/* ------------------------------ */
+/* Localisation                   */
+/* ------------------------------ */
+
+.profile-card__location {
+  margin-top: 10px;
+
+  font-size: 14px;
+
+  color: #94a3b8;
+}
+
+/* ------------------------------ */
+/* Statut                         */
+/* ------------------------------ */
+
+.profile-card__status {
+  display: inline-block;
+
+  margin-top: 12px;
+
+  padding: 6px 10px;
+
+  border-radius: 20px;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  color: #166534;
+
+  background-color: #dcfce7;
+}
+
+.profile-card.dark .profile-card__status {
+  color: #dcfce7;
+
+  background-color: #14532d;
+}
+
+/* ------------------------------ */
+/* Compétences                    */
+/* ------------------------------ */
+
+.skills {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+
+.skills span {
+  padding: 7px 13px;
+
+  border-radius: 20px;
+
+  background-color: #f1f5f9;
+
+  font-size: 13px;
+}
+
+.profile-card.dark .skills span {
+  background-color: #334155;
+
+  color: white;
+}
+
+/* ------------------------------ */
+/* Description                    */
+/* ------------------------------ */
+
+.profile-card__description {
+  margin: 25px 0;
+
+  line-height: 1.6;
+
+  color: #475569;
+}
+
+.profile-card.dark .profile-card__description {
+  color: #cbd5e1;
+}
+
+/* ------------------------------ */
+/* Bouton projets                 */
+/* ------------------------------ */
+
+.projects-button {
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 10px;
+
+  width: auto;
+
+  margin: 0 auto 22px;
+
+  padding: 11px 20px;
+
+  border: 1px solid #cbd5e1;
+  border-radius: 50px;
+
+  background-color: rgba(255, 255, 255, 0.6);
+
+  color: #1e293b;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  overflow: hidden;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease,
+    background-color 0.25s ease;
+}
+
+/* Petit effet lumineux qui traverse le bouton */
+.projects-button::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: -120%;
+
+  width: 100%;
+  height: 100%;
+
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.7),
+    transparent
+  );
+
+  transition: left 0.5s ease;
+}
+
+.projects-button:hover::before {
+  left: 120%;
+}
+
+.projects-button:hover {
+  transform: translateY(-3px);
+
+  border-color: #94a3b8;
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.09);
+}
+
+/* Flèche du bouton */
+.projects-button__icon {
+  position: relative;
+  z-index: 1;
+
+  font-size: 11px;
+
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.projects-button__icon.rotate {
+  transform: rotate(90deg);
+}
+
+/* Le texte reste au-dessus de l'effet lumineux */
+.projects-button {
+  z-index: 0;
+}
+
+/* Mode sombre du bouton projets */
+.profile-card.dark .projects-button {
+  background-color: rgba(51, 65, 85, 0.6);
+
+  color: white;
+
+  border-color: #475569;
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.profile-card.dark .projects-button:hover {
+  background-color: #334155;
+
+  border-color: #64748b;
+
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.22);
+}
+
+/* ------------------------------ */
+/* Liste des projets              */
+/* ------------------------------ */
+
+/* ------------------------------ */
+/* Apparition de la zone projets */
+/* ------------------------------ */
+
+.projects {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 12px;
+
+  margin-bottom: 25px;
+
+  padding: 14px;
+
+  border-radius: 18px;
+
+  background: rgba(255, 255, 255, 0.42);
+
+  backdrop-filter: blur(10px);
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.45),
+    0 10px 30px rgba(15, 23, 42, 0.05);
+}
+
+.profile-card.dark .projects {
+  background: rgba(15, 23, 42, 0.35);
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 10px 30px rgba(0, 0, 0, 0.18);
+}
+
+/* Chaque carte apparaît progressivement */
+
+.project-card {
+  opacity: 0;
+
+  transform: translateY(18px) scale(0.97);
+
+  animation: projectCardAppear 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Le deuxième projet apparaît légèrement après le premier */
+
+.project-card:nth-child(2) {
+  animation-delay: 0.12s;
+}
+
+/* Le troisième projet apparaîtra encore un peu après */
+
+.project-card:nth-child(3) {
+  animation-delay: 0.24s;
+}
+
+/* Animation des projets */
+
+@keyframes projectCardAppear {
+  from {
+    opacity: 0;
+
+    transform: translateY(18px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0) scale(1);
+  }
+}
+/* ------------------------------ */
+/* Carte d'un projet              */
+/* ------------------------------ */
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+
+  gap: 15px;
+
+  padding: 16px;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+
+  background-color: #f8fafc;
+
+  text-align: left;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-3px);
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* ------------------------------ */
+/* Informations du projet        */
+/* ------------------------------ */
+
+.project-card__content {
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+}
+
+/* Nom du projet */
+
+.project-card__content strong {
+  font-size: 16px;
+
+  color: #1e293b;
+}
+
+/* Technologies utilisées */
+
+.project-card__content span {
+  font-size: 12px;
+  font-weight: 600;
+
+  color: #64748b;
+}
+
+/* Description du projet */
+
+.project-card__content p {
+  margin: 5px 0 0;
+
+  font-size: 13px;
+  line-height: 1.5;
+
+  color: #475569;
+}
+
+/* ------------------------------ */
+/* Bouton GitHub du projet       */
+/* ------------------------------ */
+
+.github-project-button {
+  position: relative;
+
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 9px;
+
+  padding: 11px 14px;
+
+  border-radius: 10px;
+
+  background: linear-gradient(135deg, #1e293b, #334155);
+
+  color: white;
+
+  text-decoration: none;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  overflow: hidden;
+
+  box-shadow: 0 5px 15px rgba(15, 23, 42, 0.15);
+
+  opacity: 0;
+  filter: blur(4px);
+
+  animation: githubButtonAppear 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+/* Le bouton du 1er projet arrive juste après sa carte */
+.project-card:nth-child(1) .github-project-button {
+  animation-delay: 0.22s;
+}
+
+/* Le bouton du 2e projet arrive un peu après */
+.project-card:nth-child(2) .github-project-button {
+  animation-delay: 0.34s;
+}
+
+/* Le bouton du 3e projet arrive encore un peu après */
+.project-card:nth-child(3) .github-project-button {
+  animation-delay: 0.46s;
+}
+
+/* Apparition douce du bouton : fondu + disparition du léger flou */
+@keyframes githubButtonAppear {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+/* Reflet lumineux au survol */
+.github-project-button::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: -100%;
+
+  width: 60%;
+  height: 100%;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.18),
+    transparent
+  );
+
+  transform: skewX(-20deg);
+
+  transition: left 0.45s ease;
+}
+
+.github-project-button:hover::before {
+  left: 140%;
+}
+
+.github-project-button:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.25);
+}
+
+/* ------------------------------ */
+/* Projets en mode sombre         */
+/* ------------------------------ */
+
+.profile-card.dark .project-card {
+  background-color: #334155;
+
+  border-color: #475569;
+}
+
+.profile-card.dark .project-card__content strong {
+  color: white;
+}
+
+.profile-card.dark .project-card__content span {
+  color: #cbd5e1;
+}
+
+.profile-card.dark .project-card__content p {
+  color: #cbd5e1;
+}
+
+.profile-card.dark .github-project-button {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+
+  color: white;
+}
+
+.profile-card.dark .github-project-button:hover {
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
+}
+
+/* ------------------------------ */
+/* Bouton contact                 */
+/* ------------------------------ */
+
+.contact-button {
+  width: 100%;
+
+  padding: 13px;
+
+  border: none;
+  border-radius: 10px;
+
+  background-color: #1e293b;
+
+  color: white;
+
+  font-size: 15px;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.contact-button:hover {
+  background-color: #334155;
+
+  transform: translateY(-2px);
+}
+
+/* Contact en mode sombre */
+
+.profile-card.dark .contact-button {
+  background-color: white;
+
+  color: #1e293b;
+}
+
+.profile-card.dark .contact-button:hover {
+  background-color: #e2e8f0;
+}
+
+/* ------------------------------ */
+/* Coordonnées                    */
+/* ------------------------------ */
+
+.contact-info {
+  margin-top: 18px;
+
+  padding: 15px;
+
+  border-radius: 10px;
+
+  background-color: #f8fafc;
+}
+
+.contact-info p {
+  margin: 5px;
+
+  font-size: 14px;
+}
+
+.profile-card.dark .contact-info {
+  background-color: #334155;
+
+  color: white;
+}
+
+/* ------------------------------ */
+/* Responsive                    */
+/* ------------------------------ */
+
+@media (max-width: 500px) {
+  .page {
+    padding: 15px;
+  }
+
+  .profile-card {
+    padding: 28px 20px;
+  }
+
+  .profile-card h1 {
+    font-size: 25px;
+  }
+
+  .profile-card__image {
+    width: 120px;
+    height: 120px;
+  }
+
+  .project-card {
+    padding: 12px;
+  }
+}
+
+.copy-button {
+  margin-top: 10px;
+
+  padding: 8px 12px;
+
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+
+  background-color: transparent;
+
+  color: inherit;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.copy-button:hover {
+  background-color: #e2e8f0;
+}
+
+.profile-card.dark .copy-button:hover {
+  background-color: #475569;
+}
+
+/* Bouton lorsque l'email vient d'être copié */
+.copy-button.copied {
+  background-color: #dcfce7;
+  color: #166534;
+  border-color: #86efac;
+}
+
+.profile-card.dark .copy-button.copied {
+  background-color: #14532d;
+  color: #dcfce7;
+  border-color: #22c55e;
+}
